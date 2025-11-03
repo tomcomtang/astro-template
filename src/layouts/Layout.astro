@@ -65,7 +65,7 @@ const { title } = Astro.props as Props;
       monospace;
   }
 
-  /* 为 Markdown/MDX 页面添加居中样式（当没有 main 标签时） */
+  /* Add centered styles for Markdown/MDX pages (when there's no main tag) */
   :global(body > h1:first-child) {
     max-width: calc(60ch + 80px);
     margin: 2rem auto 0;

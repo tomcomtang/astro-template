@@ -4,7 +4,7 @@ import { getEntry, render } from 'astro:content';
 
 export const prerender = true;
 
-// 获取 MD 内容
+// Get MD content
 const mdEntry = await getEntry('examples', 'md');
 if (!mdEntry) throw new Error('md entry not found');
 const { Content } = await render(mdEntry);
