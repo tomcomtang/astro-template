@@ -1,40 +1,104 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
-
-interface CardData {
-  href: string;
-  title: string;
-  body: string;
-}
-
-// Fetch data from API routes
-const cardsResponse = await fetch(new URL('/api/cards.json', Astro.url));
-const cards: CardData[] = await cardsResponse.json();
-
-const descriptionResponse = await fetch(
-  new URL('/api/description.json', Astro.url)
-);
-const description = await descriptionResponse.json();
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Astro Interactive">
   <main>
-    <h1>Interactive <span set:html={description.titleHtml} /></h1>
-    <p class="instructions">
-      {description.text}<br />
-      <strong>API Routes:</strong>
-      <span set:html={description.code} />
-    </p>
-    <ul role="list" class="link-card-grid">
-      {
-        cards.map((card) => (
-          <Card href={card.href} title={card.title} body={card.body} />
-        ))
-      }
-    </ul>
+    <h1>Interactive <span id="title"></span></h1>
+    <p class="instructions" id="description"></p>
+    <ul role="list" class="link-card-grid" id="cards-list"></ul>
   </main>
 </Layout>
+
+<script>
+  interface CardData {
+    href: string;
+    title: string;
+    body: string;
+  }
+
+  interface DescriptionData {
+    title: string;
+    titleHtml: string;
+    text: string;
+    code: string;
+  }
+
+  // Fetch data from API routes
+  async function loadData() {
+    try {
+      // Fetch cards data
+      const cardsResponse = await fetch("/api/cards");
+      if (!cardsResponse.ok) {
+        throw new Error(
+          `Failed to fetch cards: ${cardsResponse.status} ${cardsResponse.statusText}`
+        );
+      }
+      const cards: CardData[] = await cardsResponse.json();
+
+      // Fetch description data
+      const descriptionResponse = await fetch("/api/description");
+      if (!descriptionResponse.ok) {
+        throw new Error(
+          `Failed to fetch description: ${descriptionResponse.status} ${descriptionResponse.statusText}`
+        );
+      }
+      const description: DescriptionData = await descriptionResponse.json();
+
+      // Update title
+      const titleElement = document.getElementById("title");
+      if (titleElement) {
+        titleElement.innerHTML = description.titleHtml;
+      }
+
+      // Update description
+      const descriptionElement = document.getElementById("description");
+      if (descriptionElement) {
+        descriptionElement.innerHTML = `
+          ${description.text}<br />
+          <strong>API Routes:</strong>
+          <span>${description.code}</span>
+        `;
+      }
+
+      // Render cards
+      const cardsList = document.getElementById("cards-list");
+      if (cardsList) {
+        cardsList.innerHTML = cards
+          .map(
+            (card) => `
+            <li class="link-card">
+              <a href="${card.href}">
+                <h2>
+                  <span>${card.title}</span>
+                  <span>&rarr;</span>
+                </h2>
+                <p>${card.body}</p>
+              </a>
+            </li>
+          `
+          )
+          .join("");
+      }
+    } catch (error) {
+      console.error("Error loading data:", error);
+      const main = document.querySelector("main");
+      if (main) {
+        main.innerHTML = `
+          <h1>Error</h1>
+          <p>Failed to load data. Please refresh the page.</p>
+        `;
+      }
+    }
+  }
+
+  // Load data when page is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadData);
+  } else {
+    loadData();
+  }
+</script>
 
 <style>
   :root {
@@ -104,5 +168,65 @@ const description = await descriptionResponse.json();
     grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
     gap: 1rem;
     padding: 0;
+  }
+
+  :global(.link-card) {
+    --link-gradient: linear-gradient(
+      45deg,
+      #4f39fa,
+      #da62c4 30%,
+      var(--color-border) 60%
+    );
+    list-style: none;
+    display: flex;
+    padding: 0.08rem;
+    background-color: rgba(255, 255, 255, 0.15);
+    background-image: var(--link-gradient);
+    background-size: 400%;
+    border-radius: 0.5rem;
+    background-position: 100%;
+    transition:
+      background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  :global(.link-card > a) {
+    width: 100%;
+    text-decoration: none;
+    line-height: 1.4;
+    padding: 1em 1.3em;
+    border-radius: 0.35rem;
+    color: var(--color-text);
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  :global(.link-card h2) {
+    margin: 0;
+    transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  :global(.link-card p) {
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+  }
+
+  :global(.link-card h2 span) {
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  :global(.link-card:is(:hover, :focus-within)) {
+    background-position: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  :global(.link-card:is(:hover, :focus-within) h2) {
+    color: #4f39fa;
+  }
+
+  :global(.link-card:is(:hover, :focus-within) h2 span) {
+    will-change: transform;
+    transform: translateX(2px);
   }
 </style>
