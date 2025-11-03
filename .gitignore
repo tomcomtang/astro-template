@@ -31,7 +31,6 @@ pnpm-debug.log*
 
 # Tencent Cloud EdgeOne
 .env
-.edgeone/*
-!.edgeone/project.json
+.edgeone/
 .tef_dist/*
   
