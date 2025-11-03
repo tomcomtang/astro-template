@@ -97,7 +97,7 @@ Any static assets, like images, can be placed in the `public/` directory.
 - [Astro Discord](https://astro.build/chat)
 - [Astro Integrations](https://docs.astro.build/en/guides/integrations-guide/)
 
-## 🚀 Deploy
+## Deploy
 
 Deploy this project to EdgeOne Pages with one click:
 

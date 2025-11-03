@@ -23,6 +23,12 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
+# VSCode settings
+.vscode/
+
+# Vercel output
+.vercel/
+
 # Tencent Cloud EdgeOne
 .env
 .edgeone/*
