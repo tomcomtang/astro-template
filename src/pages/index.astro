@@ -1,6 +1,18 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+
+// Get server-side render time
+const renderTime = new Date();
+const formattedTime = renderTime.toLocaleString("en-US", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hour12: false,
+});
 ---
 
 <Layout title="Welcome to Astro.">
@@ -8,7 +20,10 @@ import Card from '../components/Card.astro';
     <h1>Welcome to <span class="text-gradient">Astro</span></h1>
     <p class="instructions">
       Check out the <code>src/pages</code> directory to get started.<br />
-      <strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+      <strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.<br
+      />
+      <strong>Server Render Time:</strong>
+      <span class="render-time">{formattedTime}</span>
     </p>
     <ul role="list" class="link-card-grid">
       <Card
@@ -96,6 +111,13 @@ import Card from '../components/Card.astro';
 
   .instructions strong {
     color: rgb(var(--accent-light));
+  }
+
+  .render-time {
+    color: rgb(var(--accent-light));
+    font-family: Menlo, Monaco, "Courier New", monospace;
+    font-size: 0.9em;
+    font-weight: 600;
   }
 
   .link-card-grid {
