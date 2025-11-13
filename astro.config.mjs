@@ -8,6 +8,6 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
-  // adapter: edgeoneAdapter(),
+  adapter: edgeoneAdapter(),
   integrations: [react(), vue(), svelte(), mdx()]
 });
