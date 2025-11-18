@@ -33,4 +33,5 @@ pnpm-debug.log*
 .env
 .edgeone/
 .tef_dist/*
+package-lock.json
   

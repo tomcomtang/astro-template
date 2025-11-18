@@ -1,4 +1,4 @@
-import edgeoneAdapter from '@tencent/edgeone-astro-adapter';
+import edgeoneAdapter from '@edgeone/astro';
 import react from '@astrojs/react';
 import vue from '@astrojs/vue';
 import svelte from '@astrojs/svelte';
