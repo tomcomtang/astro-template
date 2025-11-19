@@ -4,7 +4,7 @@
 
 ## 演示
 
-在线演示: [https://astro-template.edgeone.app](https://astro-template.edgeone.app)
+在线演示: [https://astro-template.edgeone.run](https://astro-template.edgeone.run)
 
 ## 📚 功能演示
 
@@ -32,48 +32,12 @@
 
 所有命令都需要在项目根目录，通过终端运行：
 
-| 命令                      | 操作                                         |
-| :------------------------ | :------------------------------------------- |
-| `npm install`             | 安装依赖                                     |
-| `npm run dev`             | 在 `localhost:4321` 启动本地开发服务器       |
-| `npm run build`           | 构建你的生产站点到 `./dist/`                 |
-| `npm run preview`         | 在部署之前本地预览构建结果                   |
-| `npm run astro ...`       | 运行 CLI 命令，如 `astro add`, `astro check` |
-| `npm run astro -- --help` | 获取使用 Astro CLI 的帮助                    |
-
-## 📁 项目结构
-
-```
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   ├── Card.astro          # 基础 Astro 组件
-│   │   ├── ReactCard.tsx       # React 组件
-│   │   ├── VueCard.vue         # Vue 组件
-│   │   ├── SvelteCard.svelte   # Svelte 组件
-│   │   └── Clock.astro         # 时钟组件
-│   ├── content/
-│   │   ├── config.ts           # 内容集合配置
-│   │   └── examples/
-│   │       ├── md.md           # Markdown 示例
-│   │       └── mdx.mdx         # MDX 示例
-│   ├── layouts/
-│   │   └── Layout.astro        # 基础布局组件
-│   └── pages/
-│       ├── index.astro         # 首页
-│       ├── components.astro    # 框架集成演示
-│       ├── inter.astro         # API 路由演示
-│       ├── md.astro            # Markdown 演示
-│       ├── mdx.astro           # MDX 演示
-│       ├── static.astro        # 静态页面演示
-│       └── api/
-│           ├── cards.json.ts   # API 端点
-│           └── description.json.ts  # API 端点
-├── astro.config.mjs
-└── package.json
-```
+| 命令              | 操作                                   |
+| :---------------- | :------------------------------------- |
+| `npm install`     | 安装依赖                               |
+| `npm run dev`     | 在 `localhost:4321` 启动本地开发服务器 |
+| `npm run build`   | 构建你的生产站点到 `./dist/`           |
+| `npm run preview` | 在部署之前本地预览构建结果             |
 
 Astro 会在 `src/pages/` 目录中寻找 `.astro` 或 `.md` 文件。每个页面根据其文件名被暴露为一个路由。
 
