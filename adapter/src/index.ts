@@ -151,7 +151,7 @@ export default function edgeoneAdapter(
           createSimpleServerPackageJson(serverDir);
           await copyDependencies(rootDir, serverDir, fileList, logger, extraIncludeFiles, excludeFiles);
           
-          optimizeNodeModules(serverDir, logger);
+          optimizeNodeModules(serverDir);
           createServerEntryFile(serverDir, serverEntryFile);
         }
 
