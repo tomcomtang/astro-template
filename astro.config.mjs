@@ -1,4 +1,5 @@
-import edgeoneAdapter from '@edgeone/astro';
+// import edgeoneAdapter from '@edgeone/astro';
+import edgeoneAdapter from './adapter/dist/index.js';
 import react from '@astrojs/react';
 import vue from '@astrojs/vue';
 import svelte from '@astrojs/svelte';
